@@ -53,8 +53,10 @@ file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.cc
 
 
 add_executable(main main.cpp ${sources} ${headers})
+add_executable(TestProfile TestProfile.cpp)
 if(USE_ROOT)
 target_link_libraries(main ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
+target_link_libraries(TestProfile ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 else()
 target_link_libraries(main ${Geant4_LIBRARIES})
 endif()
