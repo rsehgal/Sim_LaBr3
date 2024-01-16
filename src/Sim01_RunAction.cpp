@@ -27,7 +27,7 @@ void Sim01_RunAction::BeginOfRunAction(const G4Run *)
   fAsciiFile.open("output.txt");
 #ifdef USE_ROOT
   fp = new TFile("output.root", "RECREATE");
-  fHist     = new TH1F("EnergyHist", "EnergyHist", 662, 0, 1000.);
+  fHist     = new TH1F("EnergyHist", "EnergyHist", 500, 0, 5000.);
   fRnd = new TRandom3;
 #endif
 }
