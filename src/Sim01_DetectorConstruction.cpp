@@ -15,6 +15,8 @@
 #include "G4VPhysicalVolume.hh"
 #include "Sim01_DetectorConstruction.h"
 #include "G4Tubs.hh"
+#include "G4VisAttributes.hh"
+#include "G4PhysicalConstants.hh"
 Sim01_DetectorConstruction::Sim01_DetectorConstruction() {}
 
 Sim01_DetectorConstruction::~Sim01_DetectorConstruction() {}
@@ -62,11 +64,31 @@ G4VPhysicalVolume *Sim01_DetectorConstruction::Construct() {
 							checkOverlaps);
 */
 G4double z,a;
-  
+  G4Material *Pb = nist->FindOrBuildMaterial("G4_Pb");
+  G4Material *W = nist->FindOrBuildMaterial("G4_W");
+  G4Material *Bi = nist->FindOrBuildMaterial("G4_Bi");
+  G4Material *Ti = nist->FindOrBuildMaterial("G4_Ti");
+  G4Material *Sn = nist->FindOrBuildMaterial("G4_Sn");
+  G4Material *Sb = nist->FindOrBuildMaterial("G4_Sb");
+
+  G4Tubs *shield = new G4Tubs("Pb_Shield",4.*cm,8.*cm,1.905*cm,0.,2*M_PI);
+  G4LogicalVolume *logicalShield = new G4LogicalVolume(shield, Pb, "Logical_Shield");
+  G4VPhysicalVolume *phyShield =    new G4PVPlacement(0,
+                                                        // G4ThreeVector(),
+                                                        G4ThreeVector(), 
+                                                        logicalShield, 
+                                                        "Physical_Shield", 
+                                                        logicWorld, 
+                                                        false, 
+                                                        0, 
+                                                        checkOverlaps);
+
+
+
   G4Material *nai = nist->FindOrBuildMaterial("G4_SODIUM_IODIDE");
   G4Element* La = new G4Element("Lanthanum",  "La" , z= 57., a= 138.91*g/mole);
   G4Element* Br = new G4Element("Bromine",   "Br", z= 35., a= 79.90*g/mole);
-  G4Tubs *labr3 = new G4Tubs("LaBr3",0.,1.5*cm,1.5*cm,0.,2*M_PI);
+  G4Tubs *labr3 = new G4Tubs("LaBr3",0.,1.905*cm,1.905*cm,0.,2*M_PI);
   G4double density;
   G4int ncomponents, natoms;
   G4double fractionmass;  
@@ -85,6 +107,14 @@ G4double z,a;
                                                         false, 
                                                         0, 
                                                         checkOverlaps);
+
+G4VisAttributes* shield4_col = new G4VisAttributes(G4Colour(G4Colour::Yellow()));
+shield4_col->SetForceSolid( true);
+logicalShield->SetVisAttributes(shield4_col);
+
+G4VisAttributes* labr3_col= new G4VisAttributes(G4Colour(G4Colour::Red()));
+labr3_col->SetForceSolid( true);
+logicalLaBr3->SetVisAttributes(labr3_col);
 
   return physWorld;
 }

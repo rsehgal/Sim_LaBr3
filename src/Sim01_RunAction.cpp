@@ -35,8 +35,11 @@ void Sim01_RunAction::BeginOfRunAction(const G4Run *)
 void Sim01_RunAction::Fill(double energy)
 {
 double enerSmeared = energy;
+double enerResolution = 0.03;
+double sigma = (0.03*662)/2.355;
 #ifdef USE_ROOT
-  enerSmeared =  fRnd->Gaus(energy*1000.,20);
+  //enerSmeared =  fRnd->Gaus(energy*1000.,20);
+  enerSmeared =  fRnd->Gaus(energy*1000.,sigma);
   fHist->Fill(enerSmeared);
 #endif
   fAsciiFile << enerSmeared << std::endl;
