@@ -10,6 +10,8 @@ public:
     Sim01_EventAction(Sim01_RunAction *runAction);
     Sim01_EventAction();
     ~Sim01_EventAction();
+
+    static unsigned int evNo;
 public:
     void BeginOfEventAction(const G4Event* anEvent);
     void EndOfEventAction(const G4Event* anEvent);

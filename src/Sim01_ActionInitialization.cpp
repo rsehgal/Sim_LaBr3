@@ -5,6 +5,7 @@
 #include "Sim01_RunAction.h"
 #include "Sim01_EventAction.h"
 #include "Sim01_SteppingAction.h"
+#include "Sim01_TrackingAction.h"
 
 Sim01_ActionInitialization::Sim01_ActionInitialization()
  : G4VUserActionInitialization()
@@ -30,5 +31,6 @@ void Sim01_ActionInitialization::Build() const
   Sim01_EventAction *eventAction = new Sim01_EventAction(runAction);
   SetUserAction(eventAction);
   SetUserAction(new Sim01_SteppingAction(runAction,eventAction));
+  SetUserAction(new Sim01_TrackingAction);
 }  
 

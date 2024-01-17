@@ -41,10 +41,16 @@ void Sim01_SteppingAction::UserSteppingAction(const G4Step *step) {
 
     const G4VProcess *creatorProcess = track->GetCreatorProcess();
     std::string processName = "";
+    if (track->GetTrackID() == 1)
+      processName = "Sehgal";
+
     if (creatorProcess) {
       // std::cout << "Process that creates gamma : " << creatorProcess->GetProcessName() << std::endl;
       processName = creatorProcess->GetProcessName();
     }
+    std::cout << "RAMAN : ParticleName : " << particleName << " :: Created by  : " << processName
+              << " :: TrackID : " << track->GetTrackID() << " :: KE : " << track->GetKineticEnergy() << std::endl;
+
     // if(particleName=="gamma")
     {
       double edep = step->GetTotalEnergyDeposit();
