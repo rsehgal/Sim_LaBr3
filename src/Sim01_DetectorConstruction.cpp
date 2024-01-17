@@ -70,6 +70,7 @@ G4double z,a;
   G4Material *Ti = nist->FindOrBuildMaterial("G4_Ti");
   G4Material *Sn = nist->FindOrBuildMaterial("G4_Sn");
   G4Material *Sb = nist->FindOrBuildMaterial("G4_Sb");
+  G4Material *Cu = nist->FindOrBuildMaterial("G4_Cu");
 
   G4Tubs *shield = new G4Tubs("Pb_Shield",4.*cm,8.*cm,1.905*cm,0.,2*M_PI);
   G4LogicalVolume *logicalShield = new G4LogicalVolume(shield, Pb, "Logical_Shield");
@@ -82,8 +83,6 @@ G4double z,a;
                                                         false, 
                                                         0, 
                                                         checkOverlaps);
-
-
 
   G4Material *nai = nist->FindOrBuildMaterial("G4_SODIUM_IODIDE");
   G4Element* La = new G4Element("Lanthanum",  "La" , z= 57., a= 138.91*g/mole);

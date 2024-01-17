@@ -4,32 +4,27 @@
 **	username : rsehgal
 */
 #include "Sim01_EventAction.h"
-#include <iostream>
 #include "Sim01_RunAction.h"
-Sim01_EventAction::Sim01_EventAction()
-{
-  fEDep = 0;
-}
-Sim01_EventAction::Sim01_EventAction(Sim01_RunAction *runAction)
-{
+#include <iostream>
+Sim01_EventAction::Sim01_EventAction() { fEDep = 0; }
+Sim01_EventAction::Sim01_EventAction(Sim01_RunAction *runAction) {
   fEDep = 0;
   fRunAction = runAction;
 }
 
 Sim01_EventAction::~Sim01_EventAction() {}
 
-void Sim01_EventAction::BeginOfEventAction(const G4Event *anEven)
-{
+void Sim01_EventAction::BeginOfEventAction(const G4Event *anEven) {
   /* Can be used to
     --Initialize the Event parameters like EDep,
   */
 
- /* std::cout << "--------------------------------------" << std::endl;
-  std::cout << "Entered begin of EventAction....." << std::endl;
-  */fEDep = 0;
+  /* std::cout << "--------------------------------------" << std::endl;
+   std::cout << "Entered begin of EventAction....." << std::endl;
+   */
+  fEDep = 0;
 }
-void Sim01_EventAction::EndOfEventAction(const G4Event *anEven)
-{
+void Sim01_EventAction::EndOfEventAction(const G4Event *anEven) {
   /* Can be used to
     --Fill the histogram, which were opened in RunAction
     --Printing event by event information
@@ -39,4 +34,6 @@ void Sim01_EventAction::EndOfEventAction(const G4Event *anEven)
   std::cout << "Total Energy Deposited : " << fEDep << std::endl;
   */
   fRunAction->Fill(fEDep);
+
+  //std::cout << "--------------------------------------" << std::endl;
 }

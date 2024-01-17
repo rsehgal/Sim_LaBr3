@@ -14,6 +14,7 @@
 #include "Sim01_PrimaryGeneratorAction.h"
 
 #include "FTFP_BERT.hh"
+#include <Shielding.hh>
 int main(int argc, char **argv)
 {
   G4UIExecutive *ui = 0;
@@ -29,9 +30,10 @@ int main(int argc, char **argv)
 
   // Physics list
   //Initialing the Physics
-  G4VModularPhysicsList *physicsList = new FTFP_BERT; // QBBC;
+  //G4VModularPhysicsList *physicsList = new FTFP_BERT; // QBBC;
   // Sim01_PhysicsList *physicsList = new Sim01_PhysicsList();
   // physicsList->SetVerboseLevel(1);
+  G4VModularPhysicsList *physicsList = new Shielding;
   runManager->SetUserInitialization(physicsList);
 
   //Initializing the UserActions that gets invoked at run time (Primary Generator, RunAction, EventAction, Stepping Action etc.)
