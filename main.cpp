@@ -15,6 +15,7 @@
 
 #include "FTFP_BERT.hh"
 #include <Shielding.hh>
+#include "Sim01_TrackingAction.h"
 int main(int argc, char **argv)
 {
   G4UIExecutive *ui = 0;
@@ -42,6 +43,8 @@ int main(int argc, char **argv)
 #else
   runManager->SetUserAction(new Sim01_PrimaryGeneratorAction);
 #endif
+
+runManager->SetUserAction(new Sim01_TrackingAction);
 
   // Initialize visualization
   //

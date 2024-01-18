@@ -25,7 +25,7 @@ void Sim01_EventAction::BeginOfEventAction(const G4Event *anEven) {
    */
   fEDep = 0;
   evNo++;
-  std::cout << "------------------ Event No : " << evNo << " -------------------" << std::endl;
+  std::cout << "------------------ Ayush Event No : " << evNo << " -------------------" << std::endl;
 }
 void Sim01_EventAction::EndOfEventAction(const G4Event *anEven) {
   /* Can be used to

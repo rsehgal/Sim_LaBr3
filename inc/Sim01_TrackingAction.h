@@ -16,6 +16,7 @@ public:
   Sim01_TrackingAction();
   ~Sim01_TrackingAction();
   virtual void PreUserTrackingAction(const G4Track *aTrack);
+  virtual void PostUserTrackingAction(const G4Track *aTrack);
 };
 
 #endif

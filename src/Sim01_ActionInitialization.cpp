@@ -31,6 +31,6 @@ void Sim01_ActionInitialization::Build() const
   Sim01_EventAction *eventAction = new Sim01_EventAction(runAction);
   SetUserAction(eventAction);
   SetUserAction(new Sim01_SteppingAction(runAction,eventAction));
-  SetUserAction(new Sim01_TrackingAction);
+  //SetUserAction(new Sim01_TrackingAction);
 }  
 
