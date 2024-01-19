@@ -34,10 +34,13 @@ void Sim01_TrackingAction::PreUserTrackingAction(const G4Track *aTrack) {
 
     G4String particleName = aTrack->GetDefinition()->GetParticleName();
 
+    #ifdef VERBOSE
     std::cout << "Sehgal Tracking action called : TrackID : " << aTrack->GetTrackID()
               << " :: Particle Name : " << particleName << " :: KE : " << aTrack->GetKineticEnergy()
               << " :: ParentID : " << aTrack->GetParentID() << " :: ProcessName : " << processName
               << " :: In Volume : " << aTrack->GetVolume()->GetName() << std::endl;
+    #endif
+              
   }
 
   if (!aTrack->GetStep()) {
@@ -52,12 +55,16 @@ void Sim01_TrackingAction::PreUserTrackingAction(const G4Track *aTrack) {
   G4String volumeName = volume->GetName();
 
   // Now you have the information about the volume where the creator process occurred
+  #ifdef VERBOSE
   G4cout << "Creator process happened in volume: " << volumeName << G4endl;
+  #endif
 }
 
 void Sim01_TrackingAction::PostUserTrackingAction(const G4Track *aTrack) {
   G4TrackVector *secTracks = fpTrackingManager->GimmeSecondaries();
+  #ifdef VERBOSE
   std::cout << RED << "No of Secondaries produced : " << secTracks->size() << RESET << std::endl;
+  #endif
   if (secTracks) {
     for (unsigned int i = 0; i < secTracks->size(); i++) {
       const G4VProcess *creatorProcess = secTracks->at(i)->GetCreatorProcess();
@@ -69,6 +76,7 @@ void Sim01_TrackingAction::PostUserTrackingAction(const G4Track *aTrack) {
         // std::cout << "Process that creates gamma : " << creatorProcess->GetProcessName() << std::endl;
         processName = creatorProcess->GetProcessName();
       }
+      #ifdef VERBOSE
       std::cout << GREEN << "Secondary Tracks : TrackID : "
                 << secTracks->at(i)->GetTrackID()
                 //<< " :: Particle Name : " << particleName
@@ -76,6 +84,7 @@ void Sim01_TrackingAction::PostUserTrackingAction(const G4Track *aTrack) {
                 << secTracks->at(i)->GetParentID()
                 << " :: ProcessName : " << processName
                 << " :: In Volume : " << secTracks->at(i)->GetVolume()->GetName() << RESET << std::endl;
+      #endif                
     }
   }
   /*

@@ -25,7 +25,9 @@ void Sim01_EventAction::BeginOfEventAction(const G4Event *anEven) {
    */
   fEDep = 0;
   evNo++;
+  #ifdef VERBOSE
   std::cout << "------------------ Ayush Event No : " << evNo << " -------------------" << std::endl;
+  #endif
 }
 void Sim01_EventAction::EndOfEventAction(const G4Event *anEven) {
   /* Can be used to
@@ -37,6 +39,7 @@ void Sim01_EventAction::EndOfEventAction(const G4Event *anEven) {
   std::cout << "Total Energy Deposited : " << fEDep << std::endl;
   */
   fRunAction->Fill(fEDep);
-
+  #ifdef VERBOSE
   std::cout << "--------------------------------------" << std::endl;
+  #endif
 }

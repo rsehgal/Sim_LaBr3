@@ -16,6 +16,7 @@ Sim01_SteppingAction::Sim01_SteppingAction() {}
 
 Sim01_SteppingAction::Sim01_SteppingAction(Sim01_RunAction *runAction, Sim01_EventAction *eventAction) {
   fEventAction = eventAction;
+  fRunAction = runAction;
 }
 
 Sim01_SteppingAction::~Sim01_SteppingAction() {}
@@ -32,7 +33,7 @@ void Sim01_SteppingAction::UserSteppingAction(const G4Step *step) {
   std::cout << "Total Energy deposited in the Step : " << step->GetTotalEnergyDeposit() << std::endl;*/
   //}
   G4String volumeName = step->GetTrack()->GetVolume()->GetName();
-  // if (volumeName == "Physical_LaBr3")
+  if (volumeName == "Physical_LaBr3")
   {
     G4Track *track = step->GetTrack();
     G4String particleName = track->GetDefinition()->GetParticleName();
@@ -51,18 +52,21 @@ void Sim01_SteppingAction::UserSteppingAction(const G4Step *step) {
       processName = creatorProcess->GetProcessName();
     }
     
-    if(track->GetParentID()==1 || track->GetParentID()==1 )
+    //if(track->GetParentID()==1 || track->GetParentID()==1 )
     {
 
     const G4VProcess* stepProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
     G4String stepProcessName = stepProcess->GetProcessName();
-
+    #ifdef VERBOSE
     std::cout << MAGENTA << "Stepping RAMAN : ParticleName : " << particleName
               << " :: Created by  : " << processName
               << " :: TrackID : " << track->GetTrackID()
               << " :: StepProcess : " << stepProcessName
               << " :: KE : " << track->GetKineticEnergy() 
               << RESET << std::endl;
+    #endif
+
+      
     }
    
     // if(particleName=="gamma")

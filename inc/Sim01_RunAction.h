@@ -7,8 +7,11 @@ class G4Run;
 class TH1F;
 class TFile;
 class TRandom3;
+class Data;
+
 class Sim01_RunAction : public G4UserRunAction {
 public:
+  std::map<G4String, Data *> fData;
   Sim01_RunAction();
   ~Sim01_RunAction();
 

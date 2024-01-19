@@ -6,6 +6,7 @@
 class G4Step;
 class Sim01_RunAction;
 class Sim01_EventAction;
+class Sim01_RunAction;
 class Sim01_SteppingAction : public G4UserSteppingAction {
 public:
   Sim01_SteppingAction();
@@ -18,6 +19,7 @@ public:
 
 private:
   Sim01_EventAction *fEventAction;
+  Sim01_RunAction *fEventAction;
 };
 
 #endif
