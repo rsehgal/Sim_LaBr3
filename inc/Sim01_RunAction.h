@@ -18,6 +18,7 @@ public:
 public:
   void BeginOfRunAction(const G4Run *);
   void EndOfRunAction(const G4Run *);
+  void CheckAndInsertParticleCreatorProcessAndEnergy(G4String particleName, std::string processName, double energy);
 
   void Fill(double energy);
 #ifdef USE_ROOT

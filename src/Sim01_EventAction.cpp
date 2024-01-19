@@ -7,6 +7,7 @@
 #include "Sim01_RunAction.h"
 #include <iostream>
 unsigned int Sim01_EventAction::evNo = 0;
+unsigned int Sim01_EventAction::numOfEventsProcessed = 0;
 Sim01_EventAction::Sim01_EventAction() { fEDep = 0; }
 Sim01_EventAction::Sim01_EventAction(Sim01_RunAction *runAction) {
   fEDep = 0;
@@ -25,6 +26,7 @@ void Sim01_EventAction::BeginOfEventAction(const G4Event *anEven) {
    */
   fEDep = 0;
   evNo++;
+  numOfEventsProcessed++;
   #ifdef VERBOSE
   std::cout << "------------------ Ayush Event No : " << evNo << " -------------------" << std::endl;
   #endif

@@ -7,6 +7,7 @@ class G4Run;
 class Sim01_RunAction;
 class Sim01_EventAction : public  G4UserEventAction{
 public:
+static unsigned int numOfEventsProcessed;
     Sim01_EventAction(Sim01_RunAction *runAction);
     Sim01_EventAction();
     ~Sim01_EventAction();

@@ -6,12 +6,12 @@
 #include "Sim01_SteppingAction.h"
 #include "Sim01_EventAction.h"
 #include "Sim01_RunAction.h"
+#include "colors.h"
 #include <G4Step.hh>
 #include <G4Track.hh>
 #include <G4VProcess.hh>
 #include <iostream>
 #include <string>
-#include "colors.h"
 Sim01_SteppingAction::Sim01_SteppingAction() {}
 
 Sim01_SteppingAction::Sim01_SteppingAction(Sim01_RunAction *runAction, Sim01_EventAction *eventAction) {
@@ -33,8 +33,7 @@ void Sim01_SteppingAction::UserSteppingAction(const G4Step *step) {
   std::cout << "Total Energy deposited in the Step : " << step->GetTotalEnergyDeposit() << std::endl;*/
   //}
   G4String volumeName = step->GetTrack()->GetVolume()->GetName();
-  if (volumeName == "Physical_LaBr3")
-  {
+  if (volumeName == "Physical_LaBr3") {
     G4Track *track = step->GetTrack();
     G4String particleName = track->GetDefinition()->GetParticleName();
 
@@ -51,24 +50,21 @@ void Sim01_SteppingAction::UserSteppingAction(const G4Step *step) {
       // std::cout << "Process that creates gamma : " << creatorProcess->GetProcessName() << std::endl;
       processName = creatorProcess->GetProcessName();
     }
-    
-    //if(track->GetParentID()==1 || track->GetParentID()==1 )
+
+    // if(track->GetParentID()==1 || track->GetParentID()==1 )
     {
 
-    const G4VProcess* stepProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
-    G4String stepProcessName = stepProcess->GetProcessName();
-    #ifdef VERBOSE
-    std::cout << MAGENTA << "Stepping RAMAN : ParticleName : " << particleName
-              << " :: Created by  : " << processName
-              << " :: TrackID : " << track->GetTrackID()
-              << " :: StepProcess : " << stepProcessName
-              << " :: KE : " << track->GetKineticEnergy() 
-              << RESET << std::endl;
-    #endif
+      const G4VProcess *stepProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
+      G4String stepProcessName = stepProcess->GetProcessName();
+#ifdef VERBOSE
+      std::cout << MAGENTA << "Stepping RAMAN : ParticleName : " << particleName << " :: Created by  : " << processName
+                << " :: TrackID : " << track->GetTrackID() << " :: StepProcess : " << stepProcessName
+                << " :: KE : " << track->GetKineticEnergy() << RESET << std::endl;
+#endif
 
-      
+      fRunAction->CheckAndInsertParticleCreatorProcessAndEnergy(particleName, processName, track->GetKineticEnergy());
     }
-   
+
     // if(particleName=="gamma")
     {
       double edep = step->GetTotalEnergyDeposit();

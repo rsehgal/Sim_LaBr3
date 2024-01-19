@@ -5,6 +5,8 @@
 */
 #include "Sim01_RunAction.h"
 #include <iostream>
+#include "Data.h"
+#include "Sim01_EventAction.h"
 #ifdef USE_ROOT
 #include <TFile.h>
 #include <TH1F.h>
@@ -14,6 +16,22 @@
 Sim01_RunAction::Sim01_RunAction() {}
 
 Sim01_RunAction::~Sim01_RunAction() {}
+
+void Sim01_RunAction::CheckAndInsertParticleCreatorProcessAndEnergy(
+  
+  G4String particleName, std::string processName, double energy) {
+
+  G4String particleAndProcess=particleName+"_"+processName;
+  if (fData.count(particleAndProcess)) {
+    // Particle found
+    fData[particleAndProcess]->Fill(Sim01_EventAction::numOfEventsProcessed, processName, energy);
+  } else {
+    // Particle not found
+    fData[particleAndProcess] = new Data(particleAndProcess);
+    // To Fill Tree
+    fData[particleAndProcess]->Fill(Sim01_EventAction::numOfEventsProcessed, processName, energy);
+  }
+}
 
 void Sim01_RunAction::BeginOfRunAction(const G4Run *) {
   /* Can be used to
@@ -53,6 +71,10 @@ void Sim01_RunAction::EndOfRunAction(const G4Run *) {
   std::cout << "======================================" << std::endl;
 #ifdef USE_ROOT
   fHist->Write();
+  for (const auto &pair : fData) {
+    // std::cout << "Inside WRITE : Particle : " << pair.first << " , Count : " << pair.second->GetCount() << std::endl;
+    pair.second->Write();
+  }
   fp->Close();
 #endif
   fAsciiFile.close();
