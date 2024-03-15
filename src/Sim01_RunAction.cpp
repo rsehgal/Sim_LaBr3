@@ -40,8 +40,10 @@ void Sim01_RunAction::Fill(double energy) {
   if ((energy * 1000) > 0) {
     enerSmeared = fRnd->Gaus(energy * 1000., sigma);
     fHist->Fill(enerSmeared);
+    //fHist->Fill(enerSmeared*1000.);
   }
 #endif
+  std::cout << enerSmeared << std::endl;
   fAsciiFile << enerSmeared << std::endl;
 }
 void Sim01_RunAction::EndOfRunAction(const G4Run *) {

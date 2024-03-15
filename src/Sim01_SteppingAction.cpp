@@ -13,43 +13,15 @@
 #include <string>
 Sim01_SteppingAction::Sim01_SteppingAction() {}
 
-Sim01_SteppingAction::Sim01_SteppingAction(Sim01_RunAction *runAction, Sim01_EventAction *eventAction) {
+Sim01_SteppingAction::Sim01_SteppingAction(Sim01_RunAction *runAction, Sim01_EventAction *eventAction)
+{
   fEventAction = eventAction;
 }
 
 Sim01_SteppingAction::~Sim01_SteppingAction() {}
 
-void Sim01_SteppingAction::UserSteppingAction(const G4Step *step) {
-  /* Can be used to
-    --Initialize the Step parameters like EDep in a step
-  */
-
-  // G4Track *track = step->GetTrack();
-  // if (track->GetParentID() == 0) {
-  /*std::cout << "--------------------------------------" << std::endl;
-  std::cout << "Step length from SteppingAction : " << step->GetStepLength() << std::endl;
-  std::cout << "Total Energy deposited in the Step : " << step->GetTotalEnergyDeposit() << std::endl;*/
-  //}
-  G4String volumeName = step->GetTrack()->GetVolume()->GetName();
-  if (volumeName == "Physical_LaBr3") {
-    G4Track *track = step->GetTrack();
-    G4String particleName = track->GetDefinition()->GetParticleName();
-
-    std::string procName = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
-    // std::cout << "ProcessName : " << procName << std::endl;
-    // if(particleName=="gamma" && track->GetTrackID()==1)
-
-    const G4VProcess *creatorProcess = track->GetCreatorProcess();
-    std::string processName = "";
-    if (creatorProcess) {
-      // std::cout << "Process that creates gamma : " << creatorProcess->GetProcessName() << std::endl;
-      processName = creatorProcess->GetProcessName();
-    }
-    // if(particleName=="gamma")
-    {
-      double edep = step->GetTotalEnergyDeposit();
-      // std::cout << "Edep : " << edep << " : ProcessName : " << procName << std::endl;
-      fEventAction->fEDep += edep;
-    }
-  }
+void Sim01_SteppingAction::UserSteppingAction(const G4Step *step)
+{
+     double edep = step->GetTotalEnergyDeposit();
+     fEventAction->fEDep += edep;
 }

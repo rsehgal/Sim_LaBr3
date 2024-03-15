@@ -33,7 +33,9 @@ void Sim01_EventAction::EndOfEventAction(const G4Event *anEven) {
   std::cout << "--------------------------------------" << std::endl;
   std::cout << "Total Energy Deposited : " << fEDep << std::endl;
   */
-  fRunAction->Fill(fEDep);
+ 
+  //std::cout << "Total energy for the event : " << fEDep << std::endl;
+   fRunAction->Fill(fEDep);
 
   //std::cout << "--------------------------------------" << std::endl;
 }

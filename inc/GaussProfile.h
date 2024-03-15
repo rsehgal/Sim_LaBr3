@@ -2,8 +2,11 @@
 #define GAUSS_PROFILE
 
 //#include <G4ThreeVector.hh>
+#ifdef USE_ROOT
 #include <TH2F.h>
+
 #include <TRandom3.h>
+#endif
 class GaussProfile{
 
 double x,y,z;

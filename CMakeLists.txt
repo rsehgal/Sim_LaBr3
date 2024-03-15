@@ -20,7 +20,7 @@ endif()
 #
 option(WITH_GEANT4_UIVIS "Build example with Geant4 UI and Vis drivers" ON)
 option(SEPARATE_ACTION_INITIALIZATION "Use the Separate Action Initialization Class" ON)
-option(USE_ROOT "Use ROOT to store data and histogram" ON)
+option(USE_ROOT "Use ROOT to store data and histogram" OFF)
 
 if(USE_ROOT)
 add_definitions(-DUSE_ROOT)

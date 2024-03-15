@@ -17,7 +17,7 @@ Sim01_PrimaryGeneratorAction::Sim01_PrimaryGeneratorAction() {
  G4ParticleDefinition* particle
            = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
   fParticleGun->SetParticleDefinition(particle);
-  fParticleGun->SetParticleEnergy(3000*keV);    
+  fParticleGun->SetParticleEnergy(662*keV);    
   fParticleGun->SetParticlePosition(G4ThreeVector(-10*cm,0.,0.));
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(1.,0.,0.));
 }

@@ -1,3 +1,4 @@
+#ifdef USE_ROOT
 #include "GaussProfile.h"
 #include "GaussProfile.h"
 #include "TH2F.h"
@@ -18,3 +19,6 @@ int main()
   hist2D->Draw();
   fApp->Run();
 }
+#else
+int main(){}
+#endif
